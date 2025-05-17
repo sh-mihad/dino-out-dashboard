@@ -1,9 +1,13 @@
+import { useState } from "react"
 
 export default function OrderReport({
     orders,
     handleDeleteOrder,
     handleChangeStatus
 }) {
+    const [filterValue,setFilterValue] = useState("all")
+
+
     return (
         <div>
             <div class="flex justify-between">
@@ -11,10 +15,10 @@ export default function OrderReport({
 
                 <div class="flex gap-4 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-funnel-icon lucide-funnel"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></svg>
-                    <select class="appearance-none bg-zinc-900 accent-orange-600 border-none outline-none rounded-sm">
-                        <option>All</option>
-                        <option>Pending</option>
-                        <option>Delivered</option>
+                    <select onChange={(e)=>setFilterValue(e.target.value)} class="appearance-none bg-zinc-900 accent-orange-600 border-none outline-none rounded-sm">
+                        <option value='all'>All</option>
+                        <option value='pending'> Pending</option>
+                        <option value='delivered'>Delivered</option>
                     </select>
                 </div>
             </div>
@@ -34,7 +38,15 @@ export default function OrderReport({
                         <tbody class="text-sm">
 
                             {
-                                orders?.map(order => <tr key={order.id} class="border-t border-gray-700">
+                                orders?.filter(item=>{
+                                    if(filterValue === "delivered"){
+                                        return item.isDelivered
+                                    }else if(filterValue === "pending"){
+                                        return !item.isDelivered
+                                    }else{
+                                        return item
+                                    }
+                                }).map(order => <tr key={order.id} class="border-t border-gray-700">
                                     <td class="py-3">{order.id}</td>
                                     <td class="py-3">{order.customerName}</td>
                                     <td class="py-3">{order.totalItems}</td>
