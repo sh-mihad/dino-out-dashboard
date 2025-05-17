@@ -8,7 +8,7 @@ function App() {
   const [orders,setOrders] = useState([])
 
   const handleAddOrder = (item)=>{
-    setOrders([...orders,{...item,id:order.length+1}])
+    setOrders([...orders,{...item,id:orders.length+1}])
   }
   const handleChangeStatus = (id)=>{
     const nextOrders = orders.map(item=>{
@@ -29,8 +29,8 @@ function App() {
   <div className='container mx-auto px-4 h-screen flex flex-col'>
     <Navbar/>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 flex-grow">
-      <LeftBar/>
-      <RightSideBar/>
+      <LeftBar handleAddOrder={handleAddOrder} />
+      <RightSideBar orders={orders} handleDeleteOrder={handleDeleteOrder} handleChangeStatus={handleChangeStatus} />
     </div>
   </div>
   )
