@@ -12,6 +12,8 @@ export default function LeftBar({ handleAddOrder }) {
         totalAmount:getTotalAmount(items),
         isDelivered:false
        })
+       setCustomerName("")
+       setItems([])
     }
     const handleCancelItem = (id)=>{
      const nextItems = [...items]
@@ -78,6 +80,7 @@ export default function LeftBar({ handleAddOrder }) {
                 </div>
             </div>
             <button
+                disabled={!items||!customerName}
                 onClick={handleOrder}
                 className="w-full cursor-pointer bg-orange-700 hover:bg-opacity-90 text-white font-medium py-3 rounded-full transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
                 Place Order (BDT {getTotalAmount(items)})
