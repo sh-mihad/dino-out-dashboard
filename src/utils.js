@@ -24,3 +24,14 @@ export const getTotalUnDelivered = (arr) => {
   }, 0);
   return total;
 };
+export const getTotalItemCount = (arr,itemName) => {
+  const total = arr.reduce((prevAmount, currentItem) => {
+    if (currentItem.name === itemName) {
+      return prevAmount+=1;
+    } else {
+      return prevAmount;
+    }
+  }, 0);
+  return total;
+};
+

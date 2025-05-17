@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { foodsItem } from "../data";
-import { getTotalAmount } from "../utils";
+import { getTotalAmount, getTotalItemCount } from "../utils";
 
 export default function LeftBar({ handleAddOrder }) {
     const [customerName, setCustomerName] = useState()
@@ -48,7 +48,11 @@ export default function LeftBar({ handleAddOrder }) {
                                     <img src={foodItem.img} alt={foodItem.name} className="w-10 h-10" />
                                 </div>
                                 <div>
-                                    <h3 className="font-medium">{foodItem.name}</h3>
+                                    <h3 className="font-medium">{foodItem.name} 
+                                        {items.some(i=>i.name === foodItem.name) && 
+                                            ` (${getTotalItemCount(items,foodItem.name)})`
+
+                                        }</h3>
                                     <p className="text-xs text-gray-400">BDT {foodItem.price}</p>
                                 </div>
                             </div>
